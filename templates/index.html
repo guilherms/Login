@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agenda de Contatos</title>
+</head>
+<body>
+    <h1>Agenda de Contatos</h1>
+
+    <form action="/create" method="POST">
+        <input name="name" placeholder="Nome">
+        <input name="email" placeholder="Email">
+        <input name="phone" placeholder="Telefone">
+        <button type="submit">Adicionar</button>
+    </form>
+
+  <ul>
+    {% for c in contatos %}
+    <li>
+      <form action="/update/{{c.id}}" method='POST'>
+        <input name="name" value="{{c.name}}">
+        <input name="email" value="{{c.email}}">
+        <input name="phone" value="{{c.phone}}">
+        <button type="submit">Editar</button>
+        <a href="/delete/{{ c.id }}">X</a>
+
+    {% endfor %}
+
+  </form>
+
+
+
+
+
+    {% for new_user in new_contacts %}
+      <li class="card">
+          {% if new_user.complete == True %}
+            <s>{{ new_user.name }}</s>
+            <s><{{ new_user.email }}</s>
+            <s>{{ new_user.phone }}</s>
+          {% else %}
+            <form action="/update/{{new_user.id}}" method='POST'>
+              <input name="name" value="{{new_user.name}}">
+              <input name="email" value="{{new_user.email}}">
+              <input name="phone" value="{{new_user.phone}}">
+              <button type="submit">Editar</button>
+              <a href="/delete/{{ new_user.id }}">X</a>
+
+          {% endif %}
+        <div class="actions">
+
+          {% if new_user.complete == False %}
+            <a href="/complete/{{ new_user.id }}"></a>
+          {% endif %}
+        </form>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+
+  
+</body>
+</html>
